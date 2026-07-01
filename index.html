@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>皮質醇過高自我檢查表｜小艾Iris營養師</title>
+<style>
+  :root {
+    --bg: #F2EEE6;
+    --card: #FFFFFF;
+    --card-border: #E7E1D5;
+    --header-blue: #A9C7E8;
+    --header-blue-text: #1E3A5F;
+    --text-main: #2B2B28;
+    --text-sub: #6B6558;
+    --accent: #3E6FA8;
+    --accent-soft: #EAF1FA;
+    --level-low: #4C8C6B;
+    --level-low-bg: #EAF5EE;
+    --level-mid: #C58A2E;
+    --level-mid-bg: #FBF2E3;
+    --level-high: #C05B4A;
+    --level-high-bg: #FBEAE7;
+    --radius-lg: 20px;
+    --radius-sm: 12px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 48px 20px 80px;
+    background: var(--bg);
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 720px;
+  }
+
+  .header-badge {
+    display: block;
+    margin: 0 auto 20px;
+    width: fit-content;
+    background: var(--header-blue);
+    color: var(--header-blue-text);
+    font-weight: 700;
+    font-size: 26px;
+    padding: 14px 32px;
+    border-radius: 14px;
+    letter-spacing: 1px;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: var(--text-sub);
+    font-size: 16px;
+    margin-bottom: 36px;
+  }
+
+  .item {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 22px 26px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+  }
+
+  .item:hover {
+    border-color: var(--accent);
+  }
+
+  .item:active {
+    transform: scale(0.997);
+  }
+
+  .item.checked {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+  }
+
+  .checkbox {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    border: 2px solid #C9C2B2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .item.checked .checkbox {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .checkbox svg {
+    width: 16px;
+    height: 16px;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  .item.checked .checkbox svg {
+    opacity: 1;
+  }
+
+  .item-label {
+    font-size: 17px;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .counter-wrap {
+    text-align: center;
+    margin: 36px 0 18px;
+    font-size: 17px;
+    color: var(--text-sub);
+  }
+
+  .counter-num {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--accent);
+    margin: 0 8px;
+    vertical-align: middle;
+  }
+
+  .result-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 30px 30px;
+    text-align: center;
+    font-size: 16px;
+    color: var(--text-sub);
+    line-height: 1.8;
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+
+  .result-card.level-low {
+    background: var(--level-low-bg);
+    border-color: var(--level-low);
+  }
+  .result-card.level-mid {
+    background: var(--level-mid-bg);
+    border-color: var(--level-mid);
+  }
+  .result-card.level-high {
+    background: var(--level-high-bg);
+    border-color: var(--level-high);
+  }
+
+  .result-title {
+    display: block;
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .level-low .result-title { color: var(--level-low); }
+  .level-mid .result-title { color: var(--level-mid); }
+  .level-high .result-title { color: var(--level-high); }
+
+  .result-body {
+    color: var(--text-main);
+  }
+
+  .disclaimer {
+    text-align: center;
+    color: #A29C8C;
+    font-size: 13px;
+    line-height: 1.8;
+    margin-top: 28px;
+  }
+
+  .reset-row {
+    text-align: center;
+    margin-top: 22px;
+  }
+
+  .reset-btn {
+    background: none;
+    border: 1px solid var(--card-border);
+    color: var(--text-sub);
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .reset-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 32px 14px 60px; }
+    .header-badge { font-size: 21px; padding: 12px 22px; }
+    .item { padding: 18px 18px; gap: 14px; }
+    .item-label { font-size: 15.5px; }
+    .counter-num { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <span class="header-badge">皮質醇過高自我檢查表</span>
+  <p class="subtitle">是不是壓力荷爾蒙偏高了？勾勾看你中了幾項</p>
+
+  <div id="checklist"></div>
+
+  <div class="counter-wrap">
+    你勾了 <span class="counter-num" id="counterNum">0</span> 項 / 12 項
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <span class="result-title" id="resultTitle"></span>
+    <span class="result-body" id="resultBody">勾選項目後，這裡會顯示你的壓力狀態評估</span>
+  </div>
+
+  <div class="reset-row">
+    <button class="reset-btn" id="resetBtn">重新勾選</button>
+  </div>
+
+  <p class="disclaimer">
+    此表僅供自我覺察參考，無法取代醫療診斷。<br>
+    若症狀持續或明顯，建議就醫檢測血液/唾液皮質醇。
+  </p>
+
+</div>
+
+<script>
+  const items = [
+    "晚上難入睡，或睡了還是覺得沒睡飽",
+    "沒吃很多，體脂卻卡關甚至上升",
+    "特別想吃甜食、澱粉，尤其到晚上",
+    "空腹容易心悸、手抖、頭暈",
+    "情緒容易緊繃、焦慮，難以放鬆",
+    "下午特別累，晚上卻很清醒",
+    "訓練後恢復變慢，痠痛拖很久",
+    "月經週期不規律或亂經",
+    "皮膚變差，容易長痘或水腫",
+    "記憶力、專注力明顯下降",
+    "體重集中堆積在腹部",
+    "免疫力變差，容易感冒或過敏"
+  ];
+
+  const checklistEl = document.getElementById('checklist');
+  const counterNumEl = document.getElementById('counterNum');
+  const resultCardEl = document.getElementById('resultCard');
+  const resultTitleEl = document.getElementById('resultTitle');
+  const resultBodyEl = document.getElementById('resultBody');
+  const resetBtn = document.getElementById('resetBtn');
+
+  const checkState = new Array(items.length).fill(false);
+
+  function buildChecklist() {
+    items.forEach((label, i) => {
+      const row = document.createElement('div');
+      row.className = 'item';
+      row.setAttribute('data-index', i);
+      row.innerHTML = `
+        <span class="checkbox">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </span>
+        <span class="item-label">${label}</span>
+      `;
+      row.addEventListener('click', () => toggle(i, row));
+      checklistEl.appendChild(row);
+    });
+  }
+
+  function toggle(i, row) {
+    checkState[i] = !checkState[i];
+    row.classList.toggle('checked', checkState[i]);
+    updateResult();
+  }
+
+  function updateResult() {
+    const count = checkState.filter(Boolean).length;
+    counterNumEl.textContent = count;
+
+    resultCardEl.classList.remove('level-low', 'level-mid', 'level-high');
+
+    if (count === 0) {
+      resultTitleEl.textContent = '';
+      resultBodyEl.textContent = '勾選項目後，這裡會顯示你的壓力狀態評估';
+      return;
+    }
+
+    if (count <= 3) {
+      resultCardEl.classList.add('level-low');
+      resultTitleEl.textContent = '壓力負荷較輕';
+      resultBodyEl.textContent = '目前勾選項目不多，你的壓力荷爾蒙狀態看起來還算穩定。持續維持規律作息與運動習慣，是最好的保養方式。';
+    } else if (count <= 7) {
+      resultCardEl.classList.add('level-mid');
+      resultTitleEl.textContent = '壓力負荷偏高，建議留意';
+      resultBodyEl.textContent = '你已經出現多項與皮質醇偏高相關的徵兆，睡眠、飲食渴望、情緒穩定度可能都受到影響。建議從睡眠品質與壓力管理著手調整，觀察 2–4 週是否有改善。';
+    } else {
+      resultCardEl.classList.add('level-high');
+      resultTitleEl.textContent = '壓力負荷明顯偏高，建議進一步檢測';
+      resultBodyEl.textContent = '你符合的項目已達八項以上，顯示身體長期處於高壓狀態的可能性較大，包括代謝、內分泌、免疫都可能受到影響。建議尋求專業協助，並考慮檢測血液或唾液皮質醇，釐清實際狀況。';
+    }
+  }
+
+  resetBtn.addEventListener('click', () => {
+    checkState.fill(false);
+    document.querySelectorAll('.item').forEach(el => el.classList.remove('checked'));
+    updateResult();
+  });
+
+  buildChecklist();
+</script>
+
+</body>
+</html>
