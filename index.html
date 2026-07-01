@@ -15,12 +15,16 @@
     --text-sub: #6B6558;
     --accent: #3E6FA8;
     --accent-soft: #EAF1FA;
-    --level-low: #4C8C6B;
-    --level-low-bg: #EAF5EE;
-    --level-mid: #C58A2E;
-    --level-mid-bg: #FBF2E3;
-    --level-high: #C05B4A;
-    --level-high-bg: #FBEAE7;
+    --level-1: #4C8C6B;
+    --level-1-bg: #EAF5EE;
+    --level-2: #7FA05C;
+    --level-2-bg: #F0F5E7;
+    --level-3: #C58A2E;
+    --level-3-bg: #FBF2E3;
+    --level-4: #CC7A3C;
+    --level-4-bg: #FCEFE4;
+    --level-5: #C05B4A;
+    --level-5-bg: #FBEAE7;
     --radius-lg: 20px;
     --radius-sm: 12px;
   }
@@ -149,17 +153,25 @@
     transition: background 0.25s ease, border-color 0.25s ease;
   }
 
-  .result-card.level-low {
-    background: var(--level-low-bg);
-    border-color: var(--level-low);
+  .result-card.level-1 {
+    background: var(--level-1-bg);
+    border-color: var(--level-1);
   }
-  .result-card.level-mid {
-    background: var(--level-mid-bg);
-    border-color: var(--level-mid);
+  .result-card.level-2 {
+    background: var(--level-2-bg);
+    border-color: var(--level-2);
   }
-  .result-card.level-high {
-    background: var(--level-high-bg);
-    border-color: var(--level-high);
+  .result-card.level-3 {
+    background: var(--level-3-bg);
+    border-color: var(--level-3);
+  }
+  .result-card.level-4 {
+    background: var(--level-4-bg);
+    border-color: var(--level-4);
+  }
+  .result-card.level-5 {
+    background: var(--level-5-bg);
+    border-color: var(--level-5);
   }
 
   .result-title {
@@ -169,9 +181,11 @@
     margin-bottom: 10px;
   }
 
-  .level-low .result-title { color: var(--level-low); }
-  .level-mid .result-title { color: var(--level-mid); }
-  .level-high .result-title { color: var(--level-high); }
+  .level-1 .result-title { color: var(--level-1); }
+  .level-2 .result-title { color: var(--level-2); }
+  .level-3 .result-title { color: var(--level-3); }
+  .level-4 .result-title { color: var(--level-4); }
+  .level-5 .result-title { color: var(--level-5); }
 
   .result-body {
     color: var(--text-main);
@@ -207,12 +221,50 @@
     color: var(--accent);
   }
 
+  .cta-card {
+    background: var(--header-blue);
+    border-radius: var(--radius-lg);
+    padding: 30px 30px;
+    text-align: center;
+    margin-top: 32px;
+  }
+
+  .cta-text {
+    color: var(--header-blue-text);
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0 0 18px;
+    font-weight: 500;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--header-blue-text);
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 15.5px;
+    font-weight: 700;
+    padding: 13px 32px;
+    border-radius: 30px;
+    transition: opacity 0.15s ease, transform 0.1s ease;
+  }
+
+  .cta-btn:hover {
+    opacity: 0.88;
+  }
+
+  .cta-btn:active {
+    transform: scale(0.98);
+  }
+
   @media (max-width: 480px) {
     body { padding: 32px 14px 60px; }
     .header-badge { font-size: 21px; padding: 12px 22px; }
     .item { padding: 18px 18px; gap: 14px; }
     .item-label { font-size: 15.5px; }
     .counter-num { font-size: 32px; }
+    .cta-card { padding: 24px 20px; }
+    .cta-text { font-size: 15px; }
   }
 </style>
 </head>
@@ -235,6 +287,11 @@
 
   <div class="reset-row">
     <button class="reset-btn" id="resetBtn">重新勾選</button>
+  </div>
+
+  <div class="cta-card">
+    <p class="cta-text">不知道該如何從飲食及生活習慣調整？<br>歡迎填表單預約諮詢！</p>
+    <a class="cta-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSepZpKMrNzIeme2KpfslbE8d4vbA9b9iWBtLPH-Hsv-VHdtOQ/viewform?usp=header" target="_blank" rel="noopener noreferrer">預約諮詢</a>
   </div>
 
   <p class="disclaimer">
@@ -297,7 +354,7 @@
     const count = checkState.filter(Boolean).length;
     counterNumEl.textContent = count;
 
-    resultCardEl.classList.remove('level-low', 'level-mid', 'level-high');
+    resultCardEl.classList.remove('level-1', 'level-2', 'level-3', 'level-4', 'level-5');
 
     if (count === 0) {
       resultTitleEl.textContent = '';
@@ -305,18 +362,26 @@
       return;
     }
 
-    if (count <= 3) {
-      resultCardEl.classList.add('level-low');
-      resultTitleEl.textContent = '壓力負荷較輕';
-      resultBodyEl.textContent = '目前勾選項目不多，你的壓力荷爾蒙狀態看起來還算穩定。持續維持規律作息與運動習慣，是最好的保養方式。';
-    } else if (count <= 7) {
-      resultCardEl.classList.add('level-mid');
-      resultTitleEl.textContent = '壓力負荷偏高，建議留意';
-      resultBodyEl.textContent = '你已經出現多項與皮質醇偏高相關的徵兆，睡眠、飲食渴望、情緒穩定度可能都受到影響。建議從睡眠品質與壓力管理著手調整，觀察 2–4 週是否有改善。';
+    if (count <= 2) {
+      resultCardEl.classList.add('level-1');
+      resultTitleEl.textContent = '壓力狀態穩定';
+      resultBodyEl.textContent = '目前幾乎沒有出現皮質醇偏高的徵兆，作息與壓力調節都算穩定。持續維持規律三餐、足量蛋白質與優質油脂，是最好的保養方式。';
+    } else if (count <= 5) {
+      resultCardEl.classList.add('level-2');
+      resultTitleEl.textContent = '輕度壓力訊號';
+      resultBodyEl.textContent = '出現了幾項壓力荷爾蒙偏高的徵兆，可能是近期作息或壓力稍微增加。這階段建議穩定血糖為優先：避免空腹太久、減少精緻糖攝取，三餐搭配足夠蛋白質與纖維，能幫助情緒與食慾更穩定。';
+    } else if (count <= 8) {
+      resultCardEl.classList.add('level-3');
+      resultTitleEl.textContent = '中度壓力負荷，建議開始調整';
+      resultBodyEl.textContent = '符合項目已經不少，睡眠、飲食渴望、情緒穩定度可能都受到影響。飲食上建議固定進食時間、避免長時間空腹或極端限制熱量，並增加富含鎂、B群的食物（如深綠色蔬菜、全穀類），有助神經系統穩定。同時優先處理睡眠品質。';
+    } else if (count <= 10) {
+      resultCardEl.classList.add('level-4');
+      resultTitleEl.textContent = '壓力負荷偏高，建議積極介入';
+      resultBodyEl.textContent = '大部分項目都符合，身體可能已處於長期壓力狀態，代謝與內分泌都可能受影響。這階段不建議再用低熱量或高強度飲食控制壓迫身體，反而要確保足夠熱量與規律進食，減少額外壓力來源，並考慮尋求專業協助。';
     } else {
-      resultCardEl.classList.add('level-high');
-      resultTitleEl.textContent = '壓力負荷明顯偏高，建議進一步檢測';
-      resultBodyEl.textContent = '你符合的項目已達八項以上，顯示身體長期處於高壓狀態的可能性較大，包括代謝、內分泌、免疫都可能受到影響。建議尋求專業協助，並考慮檢測血液或唾液皮質醇，釐清實際狀況。';
+      resultCardEl.classList.add('level-5');
+      resultTitleEl.textContent = '壓力負荷非常高，建議就醫評估';
+      resultBodyEl.textContent = '幾乎所有項目都符合，這是身體發出的明確警訊。強烈建議先暫緩積極的體態控制計畫，把重心放在恢復與醫療評估上，並檢測血液或唾液皮質醇，釐清實際狀況，不要獨自硬撐。';
     }
   }
 
